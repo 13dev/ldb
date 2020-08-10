@@ -1,5 +1,5 @@
 //
-// Created by forol on 10/08/2020.
+// Created by 13dev on 10/08/2020.
 //
 
 #include <string.h>
@@ -8,10 +8,41 @@
 
 MetaCommandResult MetaCommand(InputBuffer* inputBuffer)
 {
-    if (strcmp(inputBuffer->buffer, ".exit") != 0)
+    if (strcmp(inputBuffer->buffer, ".exit") == 0)
     {
-        return META_COMMAND_UNRECOGNIZED;
+        exit(EXIT_SUCCESS);
     }
 
-    exit(EXIT_SUCCESS);
+    return META_COMMAND_UNRECOGNIZED;
+}
+
+PrepareResult PrepareStatement(InputBuffer* inputBuffer, Statement* statement)
+{
+    if(strncmp(inputBuffer->buffer, "insert", 6) == 0)
+    {
+        statement->type = STATEMENT_INSERT;
+        return PREPARE_SUCCESS;
+    }
+
+    if(strcmp(inputBuffer->buffer, "select") == 0)
+    {
+        statement->type = STATEMENT_SELECT;
+        return PREPARE_SUCCESS;
+    }
+
+    // i dont understand it :/
+    return PREPARE_UNRECOGNIZED_STATEMENT;
+}
+
+void ExecuteStatement(Statement* statement)
+{
+    switch (statement->type) {
+        case STATEMENT_SELECT:
+            printf("select.");
+            break;
+        case STATEMENT_INSERT:
+            printf("insert.");
+            break;
+    }
+
 }

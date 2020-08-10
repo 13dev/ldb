@@ -48,16 +48,33 @@ int main(int argc, char* argv[])
         PrintPrompt();
         GetInput(inputBuffer);
 
-        if(strcmp(inputBuffer->buffer, ".exit") == 0)
+        if(inputBuffer->buffer[0] == '.')
         {
-            CloseInputBuffer(inputBuffer);
-            exit(EXIT_SUCCESS);
+            switch (MetaCommand(inputBuffer))
+            {
+                case META_COMMAND_SUCCESS:
+                    continue;
+                case META_COMMAND_UNRECOGNIZED:
+                    printf("Unrecognized command \"%s\".\n", inputBuffer->buffer);
+                    continue;
 
+            }
         }
-        else
+
+        Statement statement;
+
+        switch (PrepareStatement(inputBuffer, &statement))
         {
-            printf("Unrecognized command \"%s\".\n", inputBuffer->buffer);
+            case PREPARE_SUCCESS:
+                break;
+            case PREPARE_UNRECOGNIZED_STATEMENT:
+                printf("Unrecognized keyword at start of \"%s\".\n", inputBuffer->buffer);
+                continue;
         }
+
+        ExecuteStatement(&statement);
+        printf("Executed. \n");
+
     }
 
 }

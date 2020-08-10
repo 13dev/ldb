@@ -1,5 +1,5 @@
 //
-// Created by forol on 10/08/2020.
+// Created by 13dev on 10/08/2020.
 //
 
 #include <stdio.h>
@@ -37,6 +37,8 @@ typedef struct {
 } Statement;
 
 
-MetaCommandResult MetaCommand(InputBuffer* inputBuffer);
+MetaCommandResult MetaCommand(InputBuffer*);
+PrepareResult PrepareStatement(InputBuffer*, Statement*);
+void ExecuteStatement(Statement*);
 
 #endif //LDB_PARSER_H
