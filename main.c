@@ -5,7 +5,9 @@
 
 typedef struct {
     char* buffer;
+    // size_t for positive values size in bytes
     size_t bufferLength;
+    // ssize_t for negative values
     ssize_t inputLength;
 } InputBuffer;
 
@@ -33,7 +35,7 @@ void GetInput(InputBuffer* inputBuffer)
         exit(EXIT_FAILURE);
     }
 
-    // remove newline
+    // remove trailing newline \n
     inputBuffer->inputLength = bytesRead - 1;
     inputBuffer->buffer[bytesRead - 1] = 0;
 }
