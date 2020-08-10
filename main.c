@@ -2,14 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-typedef struct {
-    char* buffer;
-    // size_t for positive values size in bytes
-    size_t bufferLength;
-    // ssize_t for negative values
-    ssize_t inputLength;
-} InputBuffer;
+#include "compiler/parser.h"
 
 InputBuffer* NewInputBuffer()
 {
@@ -63,7 +56,7 @@ int main(int argc, char* argv[])
         }
         else
         {
-            printf("Unreconized command \"%s\".\n", inputBuffer->buffer);
+            printf("Unrecognized command \"%s\".\n", inputBuffer->buffer);
         }
     }
 
