@@ -21,12 +21,16 @@ PrepareResult PrepareStatement(InputBuffer* inputBuffer, Statement* statement)
     if(strncmp(inputBuffer->buffer, "insert", 6) == 0)
     {
         statement->type = STATEMENT_INSERT;
+
+        int assignedArgs = sscanf(inputBuffer->buffer, "insert %d %s %s",)
+
         return PREPARE_SUCCESS;
     }
 
     if(strcmp(inputBuffer->buffer, "select") == 0)
     {
         statement->type = STATEMENT_SELECT;
+
         return PREPARE_SUCCESS;
     }
 
