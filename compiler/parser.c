@@ -6,20 +6,16 @@
 #include <stdlib.h>
 #include "parser.h"
 
-MetaCommandResult MetaCommand(InputBuffer* inputBuffer)
-{
-    if (strcmp(inputBuffer->buffer, ".exit") == 0)
-    {
+MetaCommandResult MetaCommand(InputBuffer *inputBuffer) {
+    if (strcmp(inputBuffer->buffer, ".exit") == 0) {
         exit(EXIT_SUCCESS);
     }
 
     return META_COMMAND_UNRECOGNIZED;
 }
 
-PrepareResult PrepareStatement(InputBuffer* inputBuffer, Statement* statement)
-{
-    if(strncmp(inputBuffer->buffer, "insert", 6) == 0)
-    {
+PrepareResult PrepareStatement(InputBuffer *inputBuffer, Statement *statement) {
+    if (strncmp(inputBuffer->buffer, "insert", 6) == 0) {
         statement->type = STATEMENT_INSERT;
 
         int assignedArgs = sscanf(inputBuffer->buffer, "insert %d %s %s",)
@@ -27,8 +23,7 @@ PrepareResult PrepareStatement(InputBuffer* inputBuffer, Statement* statement)
         return PREPARE_SUCCESS;
     }
 
-    if(strcmp(inputBuffer->buffer, "select") == 0)
-    {
+    if (strcmp(inputBuffer->buffer, "select") == 0) {
         statement->type = STATEMENT_SELECT;
 
         return PREPARE_SUCCESS;
@@ -38,8 +33,7 @@ PrepareResult PrepareStatement(InputBuffer* inputBuffer, Statement* statement)
     return PREPARE_UNRECOGNIZED_STATEMENT;
 }
 
-void ExecuteStatement(Statement* statement)
-{
+void ExecuteStatement(Statement *statement) {
     switch (statement->type) {
         case STATEMENT_SELECT:
             printf("select.");

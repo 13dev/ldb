@@ -8,7 +8,7 @@
 #define LDB_PARSER_H
 
 typedef struct {
-    char* buffer;
+    char *buffer;
     // size_t for positive values size in bytes
     size_t bufferLength;
     // ssize_t for negative values
@@ -38,8 +38,10 @@ typedef struct {
 } Statement;
 
 
-MetaCommandResult MetaCommand(InputBuffer*);
-PrepareResult PrepareStatement(InputBuffer*, Statement*);
-void ExecuteStatement(Statement*);
+MetaCommandResult MetaCommand(InputBuffer *);
+
+PrepareResult PrepareStatement(InputBuffer *, Statement *);
+
+void ExecuteStatement(Statement *);
 
 #endif //LDB_PARSER_H

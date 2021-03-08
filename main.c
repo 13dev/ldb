@@ -4,26 +4,23 @@
 #include <string.h>
 #include "compiler/parser.h"
 
-InputBuffer* NewInputBuffer()
-{
-    InputBuffer* inputBuffer = (InputBuffer*) malloc(sizeof(InputBuffer));
+InputBuffer *NewInputBuffer() {
+    InputBuffer *inputBuffer = (InputBuffer *) malloc(sizeof(InputBuffer));
     inputBuffer->buffer = NULL;
     inputBuffer->bufferLength = 0;
     inputBuffer->inputLength = 0;
 
     return inputBuffer;
 }
-void PrintPrompt()
-{
+
+void PrintPrompt() {
     printf("ldb > ");
 }
 
-void GetInput(InputBuffer* inputBuffer)
-{
+void GetInput(InputBuffer *inputBuffer) {
     ssize_t bytesRead = getline(&(inputBuffer->buffer), &(inputBuffer->bufferLength), stdin);
 
-    if(bytesRead <= 0)
-    {
+    if (bytesRead <= 0) {
         printf("Error read input. \n");
         exit(EXIT_FAILURE);
     }
@@ -33,25 +30,20 @@ void GetInput(InputBuffer* inputBuffer)
     inputBuffer->buffer[bytesRead - 1] = 0;
 }
 
-void CloseInputBuffer(InputBuffer* inputBuffer)
-{
+void CloseInputBuffer(InputBuffer *inputBuffer) {
     free(inputBuffer->buffer);
     free(inputBuffer);
 }
 
-int main(int argc, char* argv[])
-{
-    InputBuffer* inputBuffer = NewInputBuffer();
+int main(int argc, char *argv[]) {
+    InputBuffer *inputBuffer = NewInputBuffer();
 
-    while (true)
-    {
+    while (true) {
         PrintPrompt();
         GetInput(inputBuffer);
 
-        if(inputBuffer->buffer[0] == '.')
-        {
-            switch (MetaCommand(inputBuffer))
-            {
+        if (inputBuffer->buffer[0] == '.') {
+            switch (MetaCommand(inputBuffer)) {
                 case META_COMMAND_SUCCESS:
                     continue;
                 case META_COMMAND_UNRECOGNIZED:
@@ -63,8 +55,7 @@ int main(int argc, char* argv[])
 
         Statement statement;
 
-        switch (PrepareStatement(inputBuffer, &statement))
-        {
+        switch (PrepareStatement(inputBuffer, &statement)) {
             case PREPARE_SUCCESS:
                 break;
             case PREPARE_UNRECOGNIZED_STATEMENT:
